@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc-watch --onSuccess 'node dist/index.js'",
-    "start": "node dist/index.js"
+    "dev": "tsc-watch --onSuccess 'node --experimental-specifier-resolution=node dist/index.js'",
+    "start": "node --experimental-specifier-resolution=node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +22,6 @@
   },
   "dependencies": {
     "typescript": "^5.2.2"
-  }
+  },
+  "type": "module"
 }
