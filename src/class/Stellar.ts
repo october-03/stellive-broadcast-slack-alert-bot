@@ -1,3 +1,6 @@
+import axios from "../../node_modules/axios/index";
+import "dotenv/config";
+
 export class Stellar {
 	name: string;
 	key: string;
@@ -6,6 +9,13 @@ export class Stellar {
 	private _title: string = "";
 	private _category: string = "";
 	private _isBroadcast: boolean = false;
+
+	sendMessage(message: string) {
+		axios.post(`${process.env.HOOK_URL}`, {
+			text: message + `\n<https://www.twitch.tv/${this.id}|${this.name} 채널 보러가기>`,
+		});
+	}
+
 	constructor(name: string, key: string, id: string) {
 		this.name = name;
 		this.key = key;
@@ -16,7 +26,9 @@ export class Stellar {
 		const currTitle = this._title;
 		if (title !== currTitle) {
 			this._title = title;
-			console.log("방송제목 변경됨: " + title);
+			if (currTitle) {
+				this.sendMessage(`${this.name}의 방송제목이 변경되었습니다.\n${currTitle} -> ${title}`);
+			}
 		}
 	}
 
@@ -24,7 +36,9 @@ export class Stellar {
 		const currCategory = this._category;
 		if (category !== currCategory) {
 			this._category = category;
-			console.log("카테고리 변경됨: " + category);
+			if (currCategory) {
+				this.sendMessage(`${this.name}의 카테고리가 변경되었습니다.\n${currCategory} -> ${category}`);
+			}
 		}
 	}
 
@@ -33,9 +47,9 @@ export class Stellar {
 		if (isBroadcast !== currIsBroadcast) {
 			this._isBroadcast = isBroadcast;
 			if (isBroadcast) {
-				console.log("방송 시작됨");
+				this.sendMessage(`${this.name}의 방송제목이 시작되었습니다.\n방송제목: ${this._title}\n카테고리: ${this._category}`);
 			} else {
-				console.log("방송 종료됨");
+				this.sendMessage(`${this.name}의 방송이 종료되었습니다.`);
 			}
 		}
 	}
