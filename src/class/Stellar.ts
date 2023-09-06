@@ -47,7 +47,7 @@ export class Stellar {
 		if (isBroadcast !== currIsBroadcast) {
 			this._isBroadcast = isBroadcast;
 			if (isBroadcast) {
-				this.sendMessage(`${this.name}의 방송제목이 시작되었습니다.\n방송제목: ${this._title}\n카테고리: ${this._category}`);
+				this.sendMessage(`${this.name}의 방송이 시작되었습니다.\n방송제목: ${this._title}\n카테고리: ${this._category}`);
 			} else {
 				this.sendMessage(`${this.name}의 방송이 종료되었습니다.`);
 			}
