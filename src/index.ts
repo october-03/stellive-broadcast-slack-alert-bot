@@ -1,5 +1,6 @@
 import { Stellar } from "./class/Stellar";
 import ApiService from "./service/ApiService";
+import BroadcastResponse from "./types/Broadcast";
 import ChannelResponse from "./types/Channel";
 import TeamResponse from "./types/Team";
 
@@ -28,11 +29,24 @@ const getTitle = async () => {
 	});
 };
 
-const getIsBroadcast = async () => {};
+const getIsBroadcast = async () => {
+	const req_nicknames = stellive.map((stellar) => `user_login=${stellar.id}`).join("&");
+	const res = await ApiService.get<BroadcastResponse>(`streams?${req_nicknames}`);
+
+	stellive.map((stellar) => {
+		const broadcast = res.data.data.find((broadcast) => broadcast.user_login === stellar.id);
+		if (broadcast) {
+			stellar.isBroadcast = true;
+		} else {
+			stellar.isBroadcast = false;
+		}
+	});
+};
 
 const getStream = async () => {
 	await getStellive();
 	await getTitle();
+	await getIsBroadcast();
 };
 
 getStream();
