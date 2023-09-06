@@ -45,8 +45,13 @@ const getIsBroadcast = async () => {
 
 const getStream = async () => {
 	await getStellive();
-	await getTitle();
-	await getIsBroadcast();
+	console.log("Stellive alert start " + new Date().toLocaleString());
+	while (true) {
+		console.log("Stellive alert request " + new Date().toLocaleString());
+		await getTitle();
+		await getIsBroadcast();
+		await new Promise((resolve) => setTimeout(resolve, 1000 * 60));
+	}
 };
 
 getStream();
