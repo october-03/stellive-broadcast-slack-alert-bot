@@ -1,4 +1,4 @@
-interface Broadcast {
+interface Channel {
 	broadcaster_id: string;
 	broadcaster_login: string;
 	broadcaster_name: string;
@@ -12,8 +12,8 @@ interface Broadcast {
 	is_branded_content: boolean;
 }
 
-interface BroadcastResponse {
+interface ChannelResponse {
 	data: Broadcast[];
 }
 
-export default BroadcastResponse;
+export default ChannelResponse;

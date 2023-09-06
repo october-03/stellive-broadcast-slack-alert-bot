@@ -1,6 +1,6 @@
 import { Stellar } from "./class/Stellar";
 import ApiService from "./service/ApiService";
-import BroadcastResponse from "./types/Broadcast";
+import ChannelResponse from "./types/Channel";
 import TeamResponse from "./types/Team";
 
 const stellive: Stellar[] = [];
@@ -16,7 +16,7 @@ const getStellive = async () => {
 
 const getTitle = async () => {
 	const req_ids = stellive.map((stellar) => `broadcaster_id=${stellar.key}`).join("&");
-	const res = await ApiService.get<BroadcastResponse>(`channels?${req_ids}`);
+	const res = await ApiService.get<ChannelResponse>(`channels?${req_ids}`);
 	const broadcastList = res.data.data;
 
 	stellive.map((stellar) => {
@@ -27,6 +27,8 @@ const getTitle = async () => {
 		}
 	});
 };
+
+const getIsBroadcast = async () => {};
 
 const getStream = async () => {
 	await getStellive();
