@@ -8,3 +8,5 @@ const ApiService = axios.create({
 		"Client-Id": process.env.API_CLIENT_ID,
 	},
 });
+
+export default ApiService;
